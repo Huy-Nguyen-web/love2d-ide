@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://code_editor/CodeEdit.tscn" type="PackedScene" id=2]
+
+[node name="Untitled" type="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+tab_align = 0
+tab_close_display_policy = 2
+drag_to_rearrange_enabled = true
+
+[node name="CodeEdit" parent="." instance=ExtResource( 2 )]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+
+[connection signal="request_completion" from="CodeEdit" to="CodeEdit" method="_on_CodeEdit_request_completion"]

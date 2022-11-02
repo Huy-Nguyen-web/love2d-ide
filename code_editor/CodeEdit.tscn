@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://code_editor/CodeEdit.gd" type="Script" id=1]
+
+[node name="CodeEdit" type="TextEdit"]
+margin_left = 208.0
+margin_right = 1024.0
+margin_bottom = 543.0
+highlight_current_line = true
+syntax_highlighting = true
+show_line_numbers = true
+draw_tabs = true
+breakpoint_gutter = true
+fold_gutter = true
+highlight_all_occurrences = true
+smooth_scrolling = true
+minimap_draw = true
+minimap_width = 120
+caret_blink = true
+script = ExtResource( 1 )

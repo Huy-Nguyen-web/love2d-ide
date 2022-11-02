@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[ext_resource path="res://theme/aestro/RobotoCondensed.tres" type="DynamicFont" id=1]
+[ext_resource path="res://theme/love2d/CartographCF-Heavy.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://theme/aestro/RobotoMono-Medium.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 2 )
+
+[resource]
+Button/fonts/font = SubResource( 2 )
+ItemList/constants/hseparation = 20
+ItemList/constants/icon_margin = 20
+ItemList/constants/line_separation = 20
+ItemList/constants/vseparation = 20
+ItemList/fonts/font = ExtResource( 1 )
+ItemList/styles/bg = null
+Label/fonts/font = ExtResource( 1 )
+LineEdit/fonts/font = ExtResource( 1 )
+TabContainer/fonts/font = ExtResource( 1 )
+TextEdit/fonts/font = SubResource( 3 )
+Tree/fonts/font = ExtResource( 1 )

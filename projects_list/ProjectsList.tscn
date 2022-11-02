@@ -1,0 +1,356 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://theme/love2d/love2d.tres" type="Theme" id=1]
+[ext_resource path="res://projects_list/ProjectsList.gd" type="Script" id=2]
+[ext_resource path="res://love_icon.png" type="Texture" id=3]
+[ext_resource path="res://theme/love2d/CartographCF-ExtraBoldItalic.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://LÖVE_logo.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 4 )
+
+[node name="ProjectsList" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.156863, 0.152941, 0.164706, 1 )
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="HSplitContainer"]
+margin_right = 200.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 200, 0 )
+color = Color( 0.156863, 0.152941, 0.164706, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 21.0
+margin_top = 207.0
+margin_right = -18.0
+custom_constants/separation = 20
+
+[node name="NewProjectButton" type="Button" parent="HSplitContainer/ColorRect/VBoxContainer"]
+margin_right = 161.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+text = "New Project"
+
+[node name="OpenProjectButton" type="Button" parent="HSplitContainer/ColorRect/VBoxContainer"]
+margin_top = 70.0
+margin_right = 161.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 0, 50 )
+text = "Import Project"
+
+[node name="DeleteProjectButton" type="Button" parent="HSplitContainer/ColorRect/VBoxContainer"]
+margin_top = 140.0
+margin_right = 161.0
+margin_bottom = 190.0
+rect_min_size = Vector2( 0, 50 )
+disabled = true
+text = "Delete Project"
+
+[node name="LoveIcon" type="TextureRect" parent="HSplitContainer/ColorRect"]
+margin_left = 19.0
+margin_top = 22.0
+margin_right = 64.0
+margin_bottom = 67.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="LoveLogo" type="TextureRect" parent="HSplitContainer/ColorRect"]
+margin_left = 76.0
+margin_top = 23.0
+margin_right = 186.0
+margin_bottom = 62.0
+texture = ExtResource( 5 )
+expand = true
+
+[node name="Panel" type="ColorRect" parent="HSplitContainer"]
+margin_left = 212.0
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0.156863, 0.152941, 0.164706, 1 )
+
+[node name="ItemList" type="ItemList" parent="HSplitContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 86.0
+max_text_lines = 2
+fixed_icon_size = Vector2( 50, 50 )
+
+[node name="Label" type="Label" parent="HSplitContainer/Panel"]
+anchor_right = 1.0
+margin_left = 39.0
+margin_top = 16.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 1 )
+text = "Projects"
+
+[node name="NewProjectDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -277.5
+margin_top = -163.0
+margin_right = 277.5
+margin_bottom = 163.0
+window_title = "Open a Directory"
+mode = 2
+access = 2
+
+[node name="AcceptDialog" type="WindowDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -196.0
+margin_top = -90.0
+margin_right = 258.0
+margin_bottom = 134.0
+window_title = "Create new project"
+
+[node name="GridContainer" type="GridContainer" parent="AcceptDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 46.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -38.0
+columns = 2
+
+[node name="ProjectLabel" type="Label" parent="AcceptDialog/GridContainer"]
+margin_top = 5.0
+margin_right = 150.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 150, 0 )
+text = "Project Name:"
+align = 2
+
+[node name="ProjectName" type="LineEdit" parent="AcceptDialog/GridContainer"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 0 )
+text = "Untitled"
+
+[node name="PathLabel" type="Label" parent="AcceptDialog/GridContainer"]
+margin_top = 41.0
+margin_right = 150.0
+margin_bottom = 63.0
+text = "Project Path:"
+align = 2
+
+[node name="Path" type="LineEdit" parent="AcceptDialog/GridContainer"]
+margin_left = 154.0
+margin_top = 36.0
+margin_right = 354.0
+margin_bottom = 68.0
+editable = false
+
+[node name="Label" type="Label" parent="AcceptDialog/GridContainer"]
+margin_top = 75.0
+margin_right = 150.0
+margin_bottom = 97.0
+
+[node name="ChoosePathButton" type="Button" parent="AcceptDialog/GridContainer"]
+margin_left = 154.0
+margin_top = 72.0
+margin_right = 354.0
+margin_bottom = 100.0
+text = "Choose path"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AcceptDialog"]
+anchor_left = 0.0204082
+anchor_top = 0.524862
+anchor_right = 0.997449
+anchor_bottom = 0.994475
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Warning1" type="Label" parent="AcceptDialog/VBoxContainer"]
+visible = false
+margin_right = 443.0
+margin_bottom = 22.0
+custom_colors/font_color = Color( 1, 0.219608, 0.219608, 1 )
+text = "*Project name cannot be blanked"
+
+[node name="Warning2" type="Label" parent="AcceptDialog/VBoxContainer"]
+visible = false
+margin_top = 26.0
+margin_right = 443.0
+margin_bottom = 48.0
+custom_colors/font_color = Color( 1, 0.219608, 0.219608, 1 )
+text = "*Project path is invalid"
+
+[node name="Warning3" type="Label" parent="AcceptDialog/VBoxContainer"]
+visible = false
+margin_top = 52.0
+margin_right = 443.0
+margin_bottom = 74.0
+custom_colors/font_color = Color( 1, 0.219608, 0.219608, 1 )
+text = "*Project folder is not a blank folder"
+
+[node name="CreateProjectButton" type="Button" parent="AcceptDialog"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -51.0
+margin_top = -34.0
+margin_right = 51.0
+margin_bottom = -12.0
+text = "Create Project"
+
+[node name="OpenProjectWindow" type="WindowDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -196.0
+margin_top = -90.0
+margin_right = 258.0
+margin_bottom = 134.0
+window_title = "Open Existing Project"
+
+[node name="GridContainer" type="GridContainer" parent="OpenProjectWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 46.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -38.0
+columns = 2
+
+[node name="ProjectLabel" type="Label" parent="OpenProjectWindow/GridContainer"]
+margin_top = 5.0
+margin_right = 150.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 150, 0 )
+text = "Project Name:"
+align = 2
+
+[node name="ProjectName" type="LineEdit" parent="OpenProjectWindow/GridContainer"]
+margin_left = 154.0
+margin_right = 354.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 0 )
+text = "Untitled"
+
+[node name="PathLabel" type="Label" parent="OpenProjectWindow/GridContainer"]
+margin_top = 41.0
+margin_right = 150.0
+margin_bottom = 63.0
+text = "Project Path:"
+align = 2
+
+[node name="Path" type="LineEdit" parent="OpenProjectWindow/GridContainer"]
+margin_left = 154.0
+margin_top = 36.0
+margin_right = 354.0
+margin_bottom = 68.0
+editable = false
+
+[node name="Label" type="Label" parent="OpenProjectWindow/GridContainer"]
+margin_top = 75.0
+margin_right = 150.0
+margin_bottom = 97.0
+
+[node name="ChoosePathButton" type="Button" parent="OpenProjectWindow/GridContainer"]
+margin_left = 154.0
+margin_top = 72.0
+margin_right = 354.0
+margin_bottom = 100.0
+text = "Choose path"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OpenProjectWindow"]
+anchor_left = 0.0204082
+anchor_top = 0.524862
+anchor_right = 0.997449
+anchor_bottom = 0.994475
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Warning1" type="Label" parent="OpenProjectWindow/VBoxContainer"]
+visible = false
+margin_right = 443.0
+margin_bottom = 22.0
+custom_colors/font_color = Color( 1, 0.219608, 0.219608, 1 )
+text = "*Project name cannot be blanked"
+
+[node name="Warning2" type="Label" parent="OpenProjectWindow/VBoxContainer"]
+visible = false
+margin_top = 26.0
+margin_right = 443.0
+margin_bottom = 48.0
+custom_colors/font_color = Color( 1, 0.219608, 0.219608, 1 )
+text = "*Project path is invalid"
+
+[node name="Warning3" type="Label" parent="OpenProjectWindow/VBoxContainer"]
+margin_right = 443.0
+margin_bottom = 22.0
+custom_colors/font_color = Color( 1, 0.219608, 0.219608, 1 )
+text = "*Please choose main.lua file"
+
+[node name="OpenProjectButton" type="Button" parent="OpenProjectWindow"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -66.0
+margin_top = -45.0
+margin_right = 66.0
+margin_bottom = -17.0
+text = "Open Project"
+
+[node name="OpenProjectDialog" type="FileDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -277.5
+margin_top = -163.0
+margin_right = 277.5
+margin_bottom = 163.0
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "main.lua" )
+
+[node name="DeleteConfirmationDialog" type="ConfirmationDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.5
+margin_top = -80.0
+margin_right = 160.5
+margin_bottom = 80.0
+window_title = "Delete Project"
+
+[connection signal="pressed" from="HSplitContainer/ColorRect/VBoxContainer/NewProjectButton" to="." method="_on_NewProjectButton_pressed"]
+[connection signal="pressed" from="HSplitContainer/ColorRect/VBoxContainer/OpenProjectButton" to="." method="_on_OpenProjectButton_pressed"]
+[connection signal="pressed" from="HSplitContainer/ColorRect/VBoxContainer/DeleteProjectButton" to="." method="_on_DeleteProjectButton_pressed"]
+[connection signal="item_activated" from="HSplitContainer/Panel/ItemList" to="." method="_on_ItemList_item_activated"]
+[connection signal="item_selected" from="HSplitContainer/Panel/ItemList" to="." method="_on_ItemList_item_selected"]
+[connection signal="nothing_selected" from="HSplitContainer/Panel/ItemList" to="." method="_on_ItemList_nothing_selected"]
+[connection signal="dir_selected" from="NewProjectDialog" to="." method="_on_NewProjectDialog_dir_selected"]
+[connection signal="pressed" from="AcceptDialog/GridContainer/ChoosePathButton" to="." method="_on_ChoosePathButton_pressed"]
+[connection signal="pressed" from="AcceptDialog/CreateProjectButton" to="." method="_on_CreateProjectButton_pressed"]
+[connection signal="pressed" from="OpenProjectWindow/GridContainer/ChoosePathButton" to="." method="_on_OpenProject_ChoosePathButton_pressed"]
+[connection signal="pressed" from="OpenProjectWindow/OpenProjectButton" to="." method="_on_Confirm_OpenProjectButton_pressed"]
+[connection signal="file_selected" from="OpenProjectDialog" to="." method="_on_OpenProjectDialog_file_selected"]
+[connection signal="confirmed" from="DeleteConfirmationDialog" to="." method="_on_DeleteConfirmationDialog_confirmed"]
