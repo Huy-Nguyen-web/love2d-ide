@@ -18,3 +18,5 @@ minimap_draw = true
 minimap_width = 120
 caret_blink = true
 script = ExtResource( 1 )
+
+[connection signal="text_changed" from="." to="." method="_on_CodeEdit_text_changed"]

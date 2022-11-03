@@ -23,6 +23,16 @@ margin_right = 187.0
 margin_bottom = 64.0
 text = "Refresh directory"
 
+[node name="CloseTabButton" type="Button" parent="ColorRect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -125.0
+margin_top = 33.0
+margin_right = -23.0
+margin_bottom = 61.0
+disabled = true
+text = "Close Tab"
+
 [node name="HSplitContainer" type="HSplitContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -72,6 +82,14 @@ margin_right = 83.0
 margin_bottom = 31.0
 text = "File"
 
+[node name="HelpMenu" type="MenuButton" parent="."]
+margin_left = 83.0
+margin_top = 2.0
+margin_right = 166.0
+margin_bottom = 33.0
+focus_mode = 2
+text = "Help"
+
 [node name="PlaySceneButton" type="Button" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -82,7 +100,24 @@ margin_bottom = 53.0
 icon = ExtResource( 4 )
 expand_icon = true
 
+[node name="WarningDialog" type="AcceptDialog" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -206.5
+margin_top = -87.0
+margin_right = 206.5
+margin_bottom = 87.0
+window_title = "Missing File!"
+dialog_text = "Warning: Your file seems to be missing
+or has been moved to somewhere else.
+
+Please close this tab and open it again
+once you found it."
+
 [connection signal="pressed" from="ColorRect/RefreshButton" to="." method="_on_RefreshButton_pressed"]
+[connection signal="pressed" from="ColorRect/CloseTabButton" to="." method="_on_CloseTabButton_pressed"]
 [connection signal="item_activated" from="HSplitContainer/FileSystem" to="." method="_on_FileSystem_item_activated"]
 [connection signal="tab_selected" from="HSplitContainer/VSplitContainer/TabContainer" to="." method="_on_TabContainer_tab_selected"]
 [connection signal="tab_selected" from="HSplitContainer/VSplitContainer/TabContainer" to="HSplitContainer/FileSystem" method="_on_TabContainer_tab_selected"]

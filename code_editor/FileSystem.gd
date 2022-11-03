@@ -68,3 +68,4 @@ func _on_FileDialog_file_selected(path: String) -> void:
 func _on_TabContainer_tab_selected(tab: int) -> void:
 	if not tab_container.get_children()[tab].name == "Untitled":
 		var path = tab_container.get_children()[tab].get_meta("path")
+		

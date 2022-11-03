@@ -30,6 +30,12 @@ func _ready() -> void:
 	$MenuButton.get_popup().set_item_shortcut(1, set_shortcut(KEY_E))
 	$MenuButton.get_popup().set_item_shortcut(3, set_shortcut(KEY_S))
 	$MenuButton.get_popup().set_item_shortcut(5, set_shortcut(KEY_Q))
+	
+	$HelpMenu.get_popup().add_item("Love2D Website")
+	$HelpMenu.get_popup().add_item("Love2D API")
+	$HelpMenu.get_popup().add_item("Love2D Forum")
+	$HelpMenu.get_popup().add_item("About Creator")
+	$HelpMenu.get_popup().connect("id_pressed", self, "_on_help_item_pressed")
 
 
 func set_shortcut(key):
@@ -40,6 +46,18 @@ func set_shortcut(key):
 	shortcut.set_shortcut(inputeventkey)
 	return shortcut
 	
+
+func _process(delta: float) -> void:
+	toggle_closetab_button()
+
+
+
+func toggle_closetab_button():
+	if tab_container.get_child_count() > 0:
+		$ColorRect/CloseTabButton.disabled = false
+	else:
+		$ColorRect/CloseTabButton.disabled = true
+
 
 
 func update_window_title(suffix : String):
@@ -64,12 +82,24 @@ func _on_item_pressed(id):
 		"Quit":
 			get_tree().quit()
 
-
+func _on_help_item_pressed(id):
+	var item_name = $HelpMenu.get_popup().get_item_text(id)
+	match item_name:
+		"Love2D Website":
+			OS.shell_open("https://love2d.org/")
+		"Love2D API":
+			OS.shell_open("https://love2d-community.github.io/love-api/")
+		"Love2D Forum":
+			OS.shell_open("https://love2d.org/forums/")
+		"About Creator":
+			OS.shell_open("https://devforfun.itch.io/")
+		
 
 func _on_FileSystem_file_changed(file, path) -> void:
 	current_file = file
 	current_file_path = path
 	update_window_title("")
+	
 
 
 
@@ -91,11 +121,16 @@ func save_file():
 			$SaveFileDialog.popup()
 		else:
 			var f = File.new()
-			f.open(current_file_path, 2)
-			f.store_string(tab_container.get_child(tab_container.current_tab).text)
-			f.close()
-			
-			update_window_title("")
+			if f.file_exists(current_file_path):
+				f.open(current_file_path, 2)
+				f.store_string(tab_container.get_child(tab_container.current_tab).text)
+				f.close()
+				update_window_title("")
+			else:
+				$WarningDialog.popup()
+				current_file = "Untitled"
+				current_file_path = null
+				update_window_title("")
 		
 
 func _on_CodeEdit_text_changed() -> void:
@@ -200,6 +235,12 @@ func move_dll_and_love():
 			file_name = dir.get_next()
 	
 	
-
 func _on_RefreshButton_pressed() -> void:
 	file_system.update_dir(Global.project_path)
+
+
+func _on_CloseTabButton_pressed() -> void:
+	tab_container.get_child(tab_container.current_tab).queue_free()
+	if tab_container.get_child_count() > 0:
+		# Change the current tab to the last one that still open
+		tab_container.current_tab = tab_container.get_child_count() - 1
