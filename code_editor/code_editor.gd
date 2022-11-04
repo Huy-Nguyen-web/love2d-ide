@@ -197,6 +197,8 @@ func _on_SaveFileDialog_file_selected(path: String) -> void:
 	tab_container.get_child(tab_container.current_tab).set_meta("path", path)
 	tab_container.get_child(tab_container.current_tab).set_meta("name", path.get_file())
 #	tab_container.get_child(tab_container.current_tab).text = f.get_as_text()
+	current_file = path.get_file()
+	current_file_path = path
 	f.close()
 	file_system.update_dir(project_path)
 	
@@ -210,6 +212,10 @@ func _on_PlaySceneButton_pressed() -> void:
 	elif OS.get_name() == "OSX":
 		var love_directory = str(OS.get_executable_path().get_base_dir()) + "/love-macos/love.app/Contents/MacOS/love"
 		OS.execute(love_directory, [Global.project_path], true, debug_output)
+	elif OS.get_name() == "X11":
+		var love_directory = str(OS.get_executable_path().get_base_dir()) + "/love.AppImage"
+		OS.execute(love_directory,[Global.project_path], true, debug_output)
+	
 	
 	for i in debug_output:
 		debug.text = "Debug: " + i
@@ -225,7 +231,10 @@ func build():
 		OS.execute(OS.get_executable_path().get_base_dir() + "/love-macos/boon", ["init"], true, debug_output)
 		OS.execute(OS.get_executable_path().get_base_dir() + "/love-macos/boon", ["love", "download", "11.3"], true, debug_output)
 		OS.execute(OS.get_executable_path().get_base_dir() + "/love-macos/boon", ["build", Global.project_path, "--target", "all"], true, debug_output)
-		
+	elif OS.get_name() == "X11":
+		OS.execute(OS.get_executable_path().get_base_dir() + "/boon", ["init"], true, debug_output)
+		OS.execute(OS.get_executable_path().get_base_dir() + "/boon", ["love", "download", "11.3"], true, debug_output)
+		OS.execute(OS.get_executable_path().get_base_dir() + "/boon", ["build", Global.project_path, "--target", "all"], true, debug_output)
 	
 	
 	for i in debug_output:
