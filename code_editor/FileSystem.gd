@@ -21,13 +21,39 @@ func recursive_path(path, parent):
 		var file_path = path + "/" + file_name
 		
 		if dir.current_is_dir():
-			var new_dir = create_item(parent)
-			new_dir.set_text(0, file_name)
-			new_dir.collapsed = true
-			recursive_path(file_path, new_dir)
+			if not file_name == "release":
+				var folder_icon = load("res://assets/folder_icon.png")
+				var new_dir = create_item(parent)
+				new_dir.set_text(0, file_name)
+				new_dir.set_icon(0, folder_icon)
+				new_dir.set_icon_max_width(0, 30)
+				new_dir.collapsed = true
+				recursive_path(file_path, new_dir)
 		else:
 			var new_file = create_item(parent)
 			new_file.set_text(0, file_name)
+			if file_name == "main.lua":
+				var icon = load("res://assets/love_icon.png")
+				new_file.set_icon(0, icon)
+				new_file.set_icon_max_width(0, 20)
+			elif file_name.get_extension().to_lower() == "lua":
+				var icon = load("res://assets/lua.png")
+				new_file.set_icon(0, icon)
+				new_file.set_icon_max_width(0, 30)
+			elif file_name.get_extension().to_lower() in ["png", "jpg", "jpeg", "bmp", "tga", "hdr", "pic", "exr"]:
+				var icon = load("res://assets/image_icon.png")
+				new_file.set_icon(0, icon)
+				new_file.set_icon_max_width(0, 20)
+			elif file_name.get_extension().to_lower() in ["wav", "mp3", "ogg", "oga", "ogv", "mid"]:
+				var icon = load("res://assets/music_icon.png")
+				new_file.set_icon(0, icon)
+				new_file.set_icon_max_width(0, 20)
+			else:
+				var icon = load("res://assets/file_icon.png")
+				new_file.set_icon(0, icon)
+				new_file.set_icon_max_width(0, 20)
+			
+			
 			new_file.set_meta("path", file_path)
 			new_file.set_meta("name", file_name)
 

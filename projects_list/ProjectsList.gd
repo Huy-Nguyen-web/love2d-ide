@@ -10,10 +10,7 @@ signal change_scene(project_name, path)
 
 func _ready() -> void:
 	load_data()
-#	var icon = load("res://love_icon.png")
-#	for project in projects_list:
-#		if project != null:
-#			$HSplitContainer/Panel/ItemList.add_item(project["project_name"] + " (Location: " + project["project_path"] + ")", icon)
+
 
 
 func save_data():

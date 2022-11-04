@@ -185,6 +185,8 @@ func _on_FileSystem_item_activated() -> void:
 		current_file_path = path
 		current_file = file_name
 		f.close()
+	else:
+		file_system.get_selected().collapsed = !file_system.get_selected().collapsed
 
 
 func _on_SaveFileDialog_file_selected(path: String) -> void:
@@ -202,17 +204,28 @@ func _on_SaveFileDialog_file_selected(path: String) -> void:
 
 func _on_PlaySceneButton_pressed() -> void:
 	# TODO: Remember to move the love folder to the export
-	var love_directory = str(OS.get_executable_path().get_base_dir()) + "/love/love.exe"
-	OS.execute("cmd.exe",["/C",love_directory, Global.project_path], true, debug_output, true)
+	if OS.get_name() == "Windows":	
+		var love_directory = str(OS.get_executable_path().get_base_dir()) + "/love/love.exe"
+		OS.execute("cmd.exe",["/C",love_directory, Global.project_path], true, debug_output, true)
+	elif OS.get_name() == "OSX":
+		var love_directory = str(OS.get_executable_path().get_base_dir()) + "/love-macos/love.app/Contents/MacOS/love"
+		OS.execute(love_directory, [Global.project_path], true, debug_output)
+	
 	for i in debug_output:
 		debug.text = "Debug: " + i
 
 
 # Export
 func build():
-	OS.execute("cmd.exe",["/C", OS.get_executable_path().get_base_dir() + "/love/boon.exe", "init"], true, debug_output, true)
-	OS.execute("cmd.exe", ["/C", OS.get_executable_path().get_base_dir() + "/love/boon.exe", "love","download", "11.3"], true, debug_output, true)
-	OS.execute("cmd.exe", ["/C", OS.get_executable_path().get_base_dir() + "/love/boon.exe", "build", Global.project_path, "--target", "all"], true, debug_output, true)
+	if OS.get_name() == "Windows":
+		OS.execute("cmd.exe",["/C", OS.get_executable_path().get_base_dir() + "/love/boon.exe", "init"], true, debug_output, true)
+		OS.execute("cmd.exe", ["/C", OS.get_executable_path().get_base_dir() + "/love/boon.exe", "love","download", "11.3"], true, debug_output, true)
+		OS.execute("cmd.exe", ["/C", OS.get_executable_path().get_base_dir() + "/love/boon.exe", "build", Global.project_path, "--target", "all"], true, debug_output, true)
+	elif OS.get_name() == "OSX":
+		OS.execute(OS.get_executable_path().get_base_dir() + "/love-macos/boon", ["init"], true, debug_output)
+		OS.execute(OS.get_executable_path().get_base_dir() + "/love-macos/boon", ["love", "download", "11.3"], true, debug_output)
+		OS.execute(OS.get_executable_path().get_base_dir() + "/love-macos/boon", ["build", Global.project_path, "--target", "all"], true, debug_output)
+		
 	
 	
 	for i in debug_output:
