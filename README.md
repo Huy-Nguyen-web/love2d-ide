@@ -1,4 +1,5 @@
-# love2d-ide
+# love2d-ide (This is just a proof-of-concept, so feel free to do anything with it)
+## Note: This project is discontinued! So use it at your own risk!
 
 ## For testing the project (Windows)
 Move the `love` folder and `template` folder to your godot execution file (`godot.exe`) before testing.
